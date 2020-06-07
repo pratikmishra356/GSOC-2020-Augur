@@ -14,5 +14,4 @@
 * Implemented preprocess_metric method
 * Implemented stacked LSTM model
 * [Notebook](https://github.com/pratikmishra356/augur_ML_insights/blob/master/insight_model_LSTM.ipynb)
-* [Summary](https://docs.google.com/document/d/1WBDsOHXtPJ9BlRSf7un9ennT6b5x4ngilU_smfpiorU/edit)
 
