@@ -10,7 +10,8 @@ import seaborn as sns
 from keras.models import load_model
 from keras.models import Sequential
 from keras.layers import LSTM
-from keras.layers import Dense
+from keras.layers import Dense,Dropout
+from sklearn.ensemble import IsolationForest
 from sklearn.preprocessing import MinMaxScaler
 
 import logging
@@ -19,46 +20,69 @@ import logging
 
 def time_series_LSTM_model(self,entry_info,repo_id,df):
 
-    columns = df.columns
-    scaler = MinMaxScaler()
-    df = pd.DataFrame(scaler.fit_transform(df))
-    df.columns = columns
-
-
-
-    def lstm_model(data,days):
+    def preprocess_data(data,tr_days,lback_days,n_features,n_predays):
     
+        train_data = data.values
+
+        features_set = []
+        labels = []
+        for i in range(lback_days, tr_days+1):
+            features_set.append(train_data[i-lback_days:i, 0])
+            labels.append(train_data[i:i+n_predays, 0])
+
+        features_set = np.array(features_set)
+        labels = np.array(labels)
+
+        features_set = np.reshape(features_set, (features_set.shape[0], features_set.shape[1], n_features))
+        
+        
+        return features_set,labels
+
+    def model_lstm(fetures_set,n_predays,n_features):
         model = Sequential()
-        model.add(LSTM(100, activation='relu', return_sequences=True, input_shape=(days, data.shape[1])))
-        model.add(LSTM(52, activation='relu',return_sequences=True))
-        model.add(Dense(data.values.shape[1]))
-        model.compile(optimizer='adam', loss='mae')
+        model.add(LSTM(60, activation='linear', return_sequences=True, input_shape=(features_set.shape[1], n_features)))
+        model.add(Dropout(0.2))
+        model.add(LSTM(40, activation='linear',return_sequences=False))
+        model.add(Dense(n_predays))
+        model.compile(optimizer='adam', loss='mean_squared_error')
+        
         return model
 
+    scaler = MinMaxScaler()
 
-    days = 1
-    nb_epochs = 50
+    data = pd.DataFrame(df.iloc[:,0])
+    data = pd.DataFrame(scaler.fit_transform(data.values))
 
-    batch_size = 5
+    tr_days = 351
+    lback_days = 3
+    n_features = 1
+    n_predays = 1
 
-    data = df.iloc[0:(int(df.shape[0]/days)*days)]
+    features_set,labels = preprocess_data(data,tr_days,lback_days,n_features,n_predays)
+    model = model_lstm(features_set,n_predays,n_features)
 
-    X_train = data.values.reshape(int(data.values.shape[0]/days),days, data.shape[1])
-    model = lstm_model(data,days)
-    model.fit(X_train,X_train,epochs=nb_epochs, batch_size=batch_size,
-                        validation_split=0.08,verbose=0)
+    history = model.fit(features_set, labels, epochs = 80, batch_size = 5,validation_split=0.1,verbose=0).history
+
+
+
+    test_inputs = data[tr_days-lback_days :len(df)].values
+    test_inputs = test_inputs.reshape(-1,n_features)
+    test_features = []
+    for i in range(lback_days, len(df)-tr_days+lback_days):
+        test_features.append(test_inputs[i-lback_days:i, 0])
+        
+    test_features = np.array(test_features)
+    test_features = np.reshape(test_features, (test_features.shape[0], test_features.shape[1], n_features))
+    predictions = model.predict(test_features)
+
+    predictions = scaler.inverse_transform(predictions)
+
+    actual_values = df.iloc[tr_days:len(df),0].values
     
-    X_predict = model.predict(X_train)
-    X_predict = X_predict.reshape(X_predict.shape[0]*days, X_predict.shape[2])
-    X_predict = pd.DataFrame(X_predict, columns=df.columns)
-    X_predict.index = df.index
 
-    Xtrain = X_train.reshape(X_train.shape[0]*days, X_train.shape[2])
-
-
-    score_train = pd.DataFrame(index=df.index)
-    score_train['Loss_mae'] = np.mean(np.abs(X_predict-Xtrain), axis = 1)
-    score_train['Threshold'] = 0.006
+    score_train = pd.DataFrame(index=df[tr_days:].index)
+    score_train['Loss_mae'] = np.abs(predictions-actual_values)
+    score_train['Threshold'] = 0.15
     score_train['Anomaly'] = score_train['Loss_mae'] > score_train['Threshold']
     anomaly_df = df.loc[score_train['Anomaly'] == True, df.columns]
     anomaly_df['score'] = score_train['Loss_mae']
@@ -107,9 +131,3 @@ def time_series_LSTM_model(self,entry_info,repo_id,df):
             logging.info("error occurred while storing datapoint: {}\n".format(repr(e)))
             break
 
-
-
-
-
-def next_ml_model(self,df):
-    pass

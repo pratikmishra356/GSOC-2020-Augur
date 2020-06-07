@@ -178,9 +178,9 @@ class InsightWorker:
 
 
     def insight_model(self,entry_info,repo_id):
-        preprocess_endpoints(entry_info,repo_id)
+        preprocess_endpoints(self,entry_info,repo_id)
 
-        register_task_completion(entry_info, repo_id, "insights")
+        self.register_task_completion(entry_info, repo_id, "insights")
 
     
 
