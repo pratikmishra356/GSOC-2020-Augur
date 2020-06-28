@@ -56,7 +56,7 @@ def time_series_metrics(self,entry_info,repo_id):
         df.rename(columns={i :"{} _ {}".format(endpoint, i) for i in metric_df.columns }, inplace=True)
 
     df = df.fillna(0)
-    df = df.groupby(df['date']).sum()
+    #df = df.groupby(df['date']).sum()
 
     time_series_LSTM_model(self,entry_info,repo_id,df)
 
