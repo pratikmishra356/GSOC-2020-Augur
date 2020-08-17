@@ -13,7 +13,7 @@ def read(filename):
 
 setup(
     name="insight_worker",
-    version="0.0.2",
+    version="1.0.0",
     url="https://github.com/chaoss/augur",
     license='MIT',
     author="Augurlabs",
@@ -22,16 +22,19 @@ setup(
     packages=find_packages(exclude=('tests',)),
     install_requires=[
         'flask', 
-        'numpy', 
+        'numpy==1.18.5', 
         'requests', 
         'psycopg2-binary', 
         'click', 
         'scipy',
-        'sklearn'
+        'sklearn',
+        'keras',
+        'tensorflow'
+
     ],
     entry_points={
         'console_scripts': [
-            'insight_worker_start=insight_worker.runtime:main',
+            'insight_worker_start=workers.insight_worker.runtime:main',
         ],
     },
     classifiers=[
