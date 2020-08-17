@@ -68,3 +68,50 @@ This is not totally different from the current Insight_worker structure , I jus
 * [Summary](https://docs.google.com/document/d/1WBDsOHXtPJ9BlRSf7un9ennT6b5x4ngilU_smfpiorU/edit)
 * [Blog](https://medium.com/@pratikmishra_60029/gsoc-weekly-summary-week-3-4-3-edd6952a129d)
 
+
+## Week 5
+
+
+* Implementation of ML pipeline into the insight_worker
+* Integrated different methods like time_series_metrics,clustering_algorithm into the insight_worker
+* [Summary](https://docs.google.com/document/d/1WBDsOHXtPJ9BlRSf7un9ennT6b5x4ngilU_smfpiorU/edit)
+* [Blog](https://medium.com/@pratikmishra_60029/gsoc-weekly-summary-week-5-6-4-88d5cc179cb4)
+
+
+## Week 6
+
+
+* Single time training of clustering model and automated clustering of repos by pickeling the model.
+* Detection of both local and global outliers by moving the threshold value
+* [Summary](https://docs.google.com/document/d/1WBDsOHXtPJ9BlRSf7un9ennT6b5x4ngilU_smfpiorU/edit)
+* [Blog](https://medium.com/@pratikmishra_60029/gsoc-weekly-summary-week-5-6-4-88d5cc179cb4)
+
+
+## Week 7
+
+
+* Performed two model with different time steps on categorically separated repos.
+* Analysis of performance of model based on contamination_factor and ratio of actual values upon error
+* [Notebook - Outliers results using LSTM models with different time_steps](https://github.com/chaoss/augur/blob/pratik/time_series_notebook/Distribution%20and%20model%20results%20analysis%20on%20individual%20data_fields.ipynb)
+* [Summary](https://docs.google.com/document/d/1WBDsOHXtPJ9BlRSf7un9ennT6b5x4ngilU_smfpiorU/edit)
+* [Blog](https://medium.com/@pratikmishra_60029/gsoc-weekly-summary-week-7-8-5-c450f35cf46e)
+
+
+## Week 8
+
+
+* Automated the selection of time_steps for the model based on sparsity and co-efficient of variation in data.
+* Implemented method for insertion of unique models and their performance summary into the lstm_anomaly_models and lstm_anomaly_results table.
+* [Summary](https://docs.google.com/document/d/1WBDsOHXtPJ9BlRSf7un9ennT6b5x4ngilU_smfpiorU/edit)
+* [Blog](https://medium.com/@pratikmishra_60029/gsoc-weekly-summary-week-7-8-5-c450f35cf46e)
+
+
+## Week 9&10
+
+
+* Made certain changes in the configuration setup of the insight_worker.
+* Wrote tests for InsightWorker class as weel as for the insight_model.
+* Wrote documentation describing all the methods in the insight_model.
+* [Summary](https://docs.google.com/document/d/1WBDsOHXtPJ9BlRSf7un9ennT6b5x4ngilU_smfpiorU/edit)
+* [Blog](https://medium.com/@pratikmishra_60029/gsoc-weekly-summary-week-9-10-6-622f17180d74)
+
