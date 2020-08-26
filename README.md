@@ -67,7 +67,7 @@ To perform the STL decomposition, the seasonality of the data has to be known.It
 The main problem with the  algorithm is that the way the branching of trees takes place introduces a bias, which is likely to reduce the reliability of the anomaly scores for ranking the data.Also it lacks in finding the sequences in the data and focuses more on extreme values which is not sufficient for time series data.
 
 
-* **CAD-OSE / KNN-CAD / SVM-CAD** : [paper]() , [example]()
+* **CAD-OSE / KNN-CAD / SVM-CAD** : [paper](https://journalofbigdata.springeropen.com/articles/10.1186/s40537-014-0011-y) , [example](https://github.com/smirmik/CAD)\
 Contextual anomaly detection seeks to find relationships within datasets where variations in external behavioural attributes well describe anomalous results in the data. \
 \
 Contextual anomaly applications are normally handled in one of two ways.
@@ -76,13 +76,13 @@ First, the context anomaly problem is transformed into a point anomaly problem. 
 The second approach to handling contextual anomaly applications is to utilize the existing structure within the records to detect anomalies using all the data concurrently.
 
 
-* **SKYLINE** : [link]() Skyline is a Python based anomaly detection/deflection stack that analyses, anomaly detects, deflects, fingerprints and learns vast amounts of streamed time series data.
+* **SKYLINE** : [link](https://github.com/earthgecko/skyline) Skyline is a Python based anomaly detection/deflection stack that analyses, anomaly detects, deflects, fingerprints and learns vast amounts of streamed time series data.
 Skyline is a near real time anomaly detection system, built to enable passive monitoring of hundreds of thousands of metrics, without the need to configure a model/thresholds for each one.\
 \
 Skyline implements a novel time series similarities comparison algorithm and a boundary layers methodology that generates fingerprints of time series data using the sum of the values of features of the time series.
 
 
-* **PROPHET** : [link]()
+* **PROPHET** : [link](https://facebook.github.io/prophet/)
 Prophet is an open source library published by Facebook that is based on decomposable (trend+seasonality+holidays) models. Prophet is a procedure for forecasting time series data based on an additive model where non-linear trends are fit with yearly, weekly, and daily seasonality, plus holiday effects. It works best with time series that have strong seasonal effects and several seasons of historical data. Prophet is robust to missing data and shifts in the trend, and typically handles outliers well.\
 \
 The Prophet procedure includes many possibilities for users to tweak and adjust forecasts. You can use human-interpretable parameters to improve your forecast by adding your domain knowledge.
@@ -93,7 +93,7 @@ The Prophet procedure includes many possibilities for users to tweak and adjust 
 
 
 
-* **NUMENTA HTM** : [link]()\
+* **NUMENTA HTM** : [link](https://numenta.com/blog/2019/10/24/machine-learning-guide-to-htm)\
 The Hierarchical Temporal Memory(HTM) algorithm is based on the well understood principles and core building blocks of the Thousand Brains Theory. In particular, it focuses on three main properties: *sequence learning, continual learning and sparse distributed representations*.\
 \
 HTM sequence memory not only advances our understanding of how the brain may solve the sequence learning problem, but is also applicable to a wide range of real-world problems such as discrete and continuous sequence prediction, anomaly detection, and sequence classification.\
@@ -101,7 +101,7 @@ HTM sequence memory not only advances our understanding of how the brain may sol
 HTM builds sparse, invariant representations of pattern sequences representing repeated structures in the input stream. The algorithm learns which patterns are likely to follow each other, thus learning to predict future patterns. 
 
 
-* **LSTM** : [link]()
+* **LSTM** : [link](http://colah.github.io/posts/2015-08-Understanding-LSTMs/)
 Long Short Term Memory networks – usually just called “LSTMs” – are a special kind of RNN, capable of learning long-term dependencies.
 LSTMs are explicitly designed to avoid the long-term dependency problem. Remembering information for long periods of time is practically their default behavior, not something they struggle to learn.\
 \
@@ -109,7 +109,7 @@ The core concept of LSTM’s are the cell state, and it’s various gates. The c
 
 
 
-## Solution : 
+## My Solution : 
 
 After analysing all the above mentioned algorithms we tried to implement a simple yet effective model which should possess most of the benefits present in the above mentioned algorithms.The Numenta Anomaly Benchmark(NAB) is a novel benchmark for evaluating algorithms for anomaly detection in streaming, real-time applications. It is composed of over 50 labeled real-world and artificial time series data files plus a novel scoring mechanism designed for real-time applications.In this repository they ranked some of the most effective algorithms with their performance values.
 
@@ -137,7 +137,7 @@ Let's say I have data from 1st Jan to 31 Dec and I want to predict the value of 
 \
 ***time_step*** : So, number of days we will pass as X for one instance is time_step.Now this one instance of X and Y values is one sample.If we have 365 days then we will use chunks of past week as X and the very next day as Y if we want to predict one day or step in future.\
 \
-***features** : This is the number of different variables you are using for training purpose.Lets say your data has features [“closed”,”open” ,”active”,”inactive”].Now you want to predict ‘closed’ variable using all the features as input including ‘closed’ then features =4, if excluding ‘closed’ as input then features = 3.\
+***features*** : This is the number of different variables you are using for training purpose.Lets say your data has features [“closed”,”open” ,”active”,”inactive”].Now you want to predict ‘closed’ variable using all the features as input including ‘closed’ then features =4, if excluding ‘closed’ as input then features = 3.\
 \
 Now let's talk about output shape, in the LSTM model at last we add a dense layer with a certain number of neurons , that number is decided by how many days or steps we want to predict in future.\
 \
@@ -215,7 +215,6 @@ Machine Learning is all about improving time by time and so certain improvements
 * Model struggles in code-changes-lines metrics, so this can be improved by implementing certain extra data transformation methods to handle this metric.
 
 * Certain feature engineering can be implemented like finding the dependency  of metrics on one another and to evaluate if this can improve models performance further.
-
 
 
 ## Project Development 
@@ -318,3 +317,9 @@ Machine Learning is all about improving time by time and so certain improvements
 * [Summary](https://docs.google.com/document/d/1WBDsOHXtPJ9BlRSf7un9ennT6b5x4ngilU_smfpiorU/edit)
 * [Blog](https://medium.com/@pratikmishra_60029/gsoc-weekly-summary-week-9-10-6-622f17180d74)
 
+## Week 11&12
+
+* Comparative analysis of results of BiLSTM model and IsolationForest
+* Wrote project summary
+* [Notebook - BiLSTM_keras_model](https://github.com/pratikmishra356/GSOC-2020-Augur/blob/master/Notebooks/BiLSTM_keras_model.ipynb)
+* [Summary](https://docs.google.com/document/d/1WBDsOHXtPJ9BlRSf7un9ennT6b5x4ngilU_smfpiorU/edit)
