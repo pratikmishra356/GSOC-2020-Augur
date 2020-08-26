@@ -323,3 +323,4 @@ Machine Learning is all about improving time by time and so certain improvements
 * Wrote project summary
 * [Notebook - BiLSTM_keras_model](https://github.com/pratikmishra356/GSOC-2020-Augur/blob/master/Notebooks/BiLSTM_keras_model.ipynb)
 * [Summary](https://docs.google.com/document/d/1WBDsOHXtPJ9BlRSf7un9ennT6b5x4ngilU_smfpiorU/edit)
+* [Blog](https://medium.com/@pratikmishra_60029/gsoc-2020-final-work-summary-7-4761f48ce6c8)
