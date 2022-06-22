@@ -22,7 +22,7 @@ setup(
     packages=find_packages(exclude=('tests',)),
     install_requires=[
         'flask', 
-        'numpy==1.18.5', 
+        'numpy==1.22.0', 
         'requests', 
         'psycopg2-binary', 
         'click', 
